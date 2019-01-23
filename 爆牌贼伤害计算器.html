@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>疲劳计算</title>
+	<style type="text/css">
+	#container{
+	margin:auto;
+	width:500px;
+	height:570px;
+	background-color:orange;
+	font-size:16px;
+	border:ridge  20px #cc9900;
+	padding:5px;
+	}
+	#container h2{
+	text-align:center;
+	}
+</style>
+	</head>
+	<body>
+	<script type="text/javascript">
+	function getNum(idInput){
+		var num;
+    	num=document.getElementById(idInput).value;
+    	if(isNaN(num)) //isNAN()true,不是数字
+		{
+		alert("不是数字");	
+		}
+   		 else 
+		{
+		num=parseInt(num);
+		return num;
+		}
+	}
+	function getOpt(){
+    	var opt="+";
+    	for(var i=1;i<=3;i++)
+    	{
+	    	if(document.getElementById("opt"+i).checked) 
+	    	{
+	    	opt=document.getElementById("opt"+i).value;
+	    	break;
+	   	 	}
+    	}
+    	return opt;
+	}
+	function computeGo(){
+	//以ID定义变量
+	var num1,num2,num3,num4,num5,opt;
+	//定义四个循环控制变量
+	var i;
+	var j;
+	var p;
+	var q;
+	//sum 与result 的含义对应
+	var sum = 0;
+	var sum2 =0;
+	var sum3 = 0;
+	var sum4 = 0;
+    var result=0;
+	var result2=0;
+	num1= getNum("num1");
+	num2= getNum("num2");
+	num3= getNum("num3");
+	num4= getNum("num4");
+	num5= getNum("num5");
+	
+	//////////////////////////////////////////////////////
+	//计算敌方所受基本伤害
+	for (i = 1; i <= 2* num1 - num3 ; i++){
+		sum+=i;
+	}//不考虑铜须
+	for (j = 1; j <= 2*2* num1 - num3; j++){
+		sum2 += j;
+	}//考虑铜须
+	/////////////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////////////////////
+	//计算我方所受基本伤害
+	for (p = 1; p <= 2* num1 - num2; p++){
+		sum3+=p;
+	}//不考虑铜须	
+	for (q = 1; q <= 2*2* num1 - num2; q++){
+		sum4+=q;
+	}//考虑铜须
+	///////////////////////////////////////////////////////
+	opt=getOpt();
+    switch(opt){   
+	    	case "+": //不考虑铜须
+			result = sum + num5;
+			result2 = sum3 + num4
+			break;
+	    	case "-": //考虑铜须
+			result = sum2 + num5;
+			result2 = sum4 + num4
+			break;
+    	}
+	document.getElementById("result").value=result;
+	document.getElementById("result2").value=result2;
+	}
+	
+</script>
+<div id="container" align="center">
+		<h2>爆牌贼伤害计算器</h2>
+		<hr />
+		<form>
+			<p>请注意！！！请自行算好卡牌费用<p/>
+			<input type="radio" name="opt" id ="opt1" value="+" checked="checked"/>无铜须
+			<input type="radio" name="opt" id ="opt2"  value="-" />有铜须
+			<br />
+			手中蓝鱼人数量（有DK请自行加1鱼人数）：<br /><input type="text" name="txt1" id="num1" />
+			<br /><br />
+			我方牌库剩余数（已经疲劳填0）：<br /><input type="text" name="txt2" id="num2" value="0"/>
+			<br /><br />
+			对方牌库剩余数（已经疲劳填0）：<br /><input type="text" name="txt3" id="num3"  value="0"/>
+			<br /><br />
+			我方当前疲劳值：<br /><input type="text" name="txt4" id="num4"  value="0"/>
+			<br /><br />
+			对方当前疲劳值:<br /><input type="text" name="txt5" id="num5"  value="0"/>
+			<br /><br />
+			<input type="button" name="btn" value="点击计算"  onclick="computeGo()"/>
+			<input type="reset" value="重置">
+			<br /><br />
+			我方所受伤害：<br /><input type="text" name="txt5" id="result2" />
+			<br /><br />
+			对方所受伤害：<br /><input type="text" name="txt4" id="result" />
+			
+		</form>
+	</div>
+	<div class="three">
+			<hr color="black" />
+			<p align="center">版权所有：<span>CUG WQH</span></p>
+		</div>
+
+	</body>
+</html>
